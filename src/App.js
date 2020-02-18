@@ -17,6 +17,7 @@ function App() {
   const secondRef = useRef();
   const thirdRef = useRef();
   const fourthRef = useRef();
+  const successRef = useRef();
   const failureRef = useRef();
 
   const [success, setSuccess] = useState(false);
@@ -26,8 +27,18 @@ function App() {
       first !== "" && second !== "" && third !== "" && fourth !== "";
     const checkCode = `${first}${second}${third}${fourth}` === CODE;
     setSuccess(checkCode);
-    if (allEntered && !checkCode) {
-      failureRef.current.play();
+    if (allEntered) {
+      if (checkCode) {
+        successRef.current.play();
+      } else {
+        failureRef.current.play();
+        setTimeout(() => {
+          setFirst("");
+          setSecond("");
+          setThird("");
+          setFourth("");
+        }, 2000);
+      }
     } else {
       if (first === "") firstRef.current && firstRef.current.focus();
       else if (second === "") secondRef.current && secondRef.current.focus();
@@ -39,27 +50,29 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <DigitInput
-          digit={first}
-          setDigit={setFirst}
-          ref={firstRef}
-        ></DigitInput>
-        <DigitInput
-          digit={second}
-          setDigit={setSecond}
-          ref={secondRef}
-        ></DigitInput>
-        <DigitInput
-          digit={third}
-          setDigit={setThird}
-          ref={thirdRef}
-        ></DigitInput>
-        <DigitInput
-          digit={fourth}
-          setDigit={setFourth}
-          ref={fourthRef}
-        ></DigitInput>
-        <audio controls={success}>
+        <div className="App-digits">
+          <DigitInput
+            digit={first}
+            setDigit={setFirst}
+            ref={firstRef}
+          ></DigitInput>
+          <DigitInput
+            digit={second}
+            setDigit={setSecond}
+            ref={secondRef}
+          ></DigitInput>
+          <DigitInput
+            digit={third}
+            setDigit={setThird}
+            ref={thirdRef}
+          ></DigitInput>
+          <DigitInput
+            digit={fourth}
+            setDigit={setFourth}
+            ref={fourthRef}
+          ></DigitInput>
+        </div>
+        <audio controls={success} ref={successRef}>
           <source src={successSound} />
         </audio>
         <audio ref={failureRef}>
