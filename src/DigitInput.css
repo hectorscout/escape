@@ -1,7 +1,28 @@
 .DigitInput {
-  margin: 2rem;
+  margin: 4rem 2rem;
   height: 10rem;
   width: 10rem;
   font-size: 10.5rem;
   text-align: center;
+}
+
+.invalid {
+  border: 1px solid red;
+  color: #ff4545;
+  background-color: #ffeffa;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .invalid {
+    animation: invalid-spin infinite 2s linear;
+  }
+}
+
+@keyframes invalid-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

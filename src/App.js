@@ -22,9 +22,10 @@ function App() {
 
   const [success, setSuccess] = useState(false);
 
+  const allEntered =
+    first !== "" && second !== "" && third !== "" && fourth !== "";
+
   useEffect(() => {
-    const allEntered =
-      first !== "" && second !== "" && third !== "" && fourth !== "";
     const checkCode = `${first}${second}${third}${fourth}` === CODE;
     setSuccess(checkCode);
     if (allEntered) {
@@ -55,21 +56,25 @@ function App() {
             digit={first}
             setDigit={setFirst}
             ref={firstRef}
+            invalid={allEntered && !success}
           ></DigitInput>
           <DigitInput
             digit={second}
             setDigit={setSecond}
             ref={secondRef}
+            invalid={allEntered && !success}
           ></DigitInput>
           <DigitInput
             digit={third}
             setDigit={setThird}
             ref={thirdRef}
+            invalid={allEntered && !success}
           ></DigitInput>
           <DigitInput
             digit={fourth}
             setDigit={setFourth}
             ref={fourthRef}
+            invalid={allEntered && !success}
           ></DigitInput>
         </div>
         <audio controls={success} ref={successRef}>
